@@ -3,22 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Error Demo</title>
+  <title>CSP Demo with React App</title>
 
+  <!-- CSP with nonces -->
+  <meta http-equiv="Content-Security-Policy" 
+        content="
+          default-src 'self';
+          script-src 'self' https://unpkg.com https://cdn.tailwindcss.com 'nonce-abc123' 'unsafe-eval';
+          style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com;
+          connect-src 'self' https://unpkg.com;
+          img-src 'self' data:;
+          object-src 'none';
+        ">
 
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-
-
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Allowed external scripts with matching nonce -->
+  <script nonce="abc123" src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script nonce="abc123" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script nonce="abc123" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script nonce="abc123" src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
   <div id="root"></div>
 
-  <!-- Your React code -->
-  <script type="text/babel" src="App.jsx"></script>
+  
+  <script nonce="abc123" type="text/babel" src="App.jsx"></script>
+
+  <!--Malicious-->
+  <script>
+    alert("This should be blocked by CSP!");
+  </script>
 </body>
 </html>
