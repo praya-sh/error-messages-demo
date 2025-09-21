@@ -7,4 +7,30 @@ const errors = {
   region: "We’re switching you to another server. Please wait...",
 };
 
+function App() {
+  const [error, setError] = useState("");
 
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+      <h1 className="text-2xl font-bold mb-6">Error Message Demo</h1>
+
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        {Object.keys(errors).map((key) => (
+          <button
+            key={key}
+            onClick={() => setError(errors[key])}
+            className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600"
+          >
+            {key.charAt(0).toUpperCase() + key.slice(1)} Error
+          </button>
+        ))}
+      </div>
+
+      
+    </div>
+  );
+}
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
