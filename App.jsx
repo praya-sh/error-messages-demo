@@ -26,7 +26,12 @@ function App() {
         ))}
       </div>
 
-      
+      {error && (
+        <div className="w-full max-w-md border border-red-200 bg-white shadow-lg rounded-2xl p-4">
+          <h2 className="text-lg font-semibold text-red-600">Error</h2>
+          <p className="text-gray-600">{error}</p>
+        </div>
+      )}
     </div>
   );
 }
